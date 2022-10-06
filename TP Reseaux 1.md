@@ -134,3 +134,27 @@
         Nom :    google.com
         Addresses:  2a00:1450:4007:80f::200e
             216.58.209.238
+
+## Wireshark
+
+1. Intro Wireshark 
+
+    je ping 10.10.10.227
+    on cherche la ligne qui a été ping avec l'addresse 10.10.10.227
+
+        179	87.494287	10.10.10.127	10.10.10.227	ICMP	74	Echo (ping) request  id=0x0001, seq=45/11520, ttl=128 (reply in 180)
+
+    on lance le chat dans la barre de recherche on tape tcp.port== 8888
+    et on obtient toutes les communication effectuer sur le port 8888 
+    
+        5	2.943657	10.10.10.127	10.10.10.227	TCP	59	55917 → 8888 [PSH, ACK] Seq=1 Ack=1 Win=1026 Len=5
+        6	2.994243	10.10.10.227	10.10.10.127	TCP	60	8888 → 55917 [ACK] Seq=1 Ack=6 Win=8195 Len=0
+
+    je ping Ynov.com
+        
+        103	14.742893	10.33.17.0	104.26.10.233	ICMP	74	Echo (ping) request  id=0x0001, seq=57/14592, ttl=128 (reply in 104)
+
+2. Bonus : avant-goût TCP et UDP
+
+    l'ip du serveur yt quand je regarde une video yt est 142.250.179.78
+    et le port et 443
