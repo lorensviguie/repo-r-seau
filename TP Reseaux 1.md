@@ -83,4 +83,54 @@
 
     on va dans le panneau de configuration , systeme et securité , parefeu , parametre avancé , et on cherche partage de fichier et d'imprimante 
     domaine IPV4 et on active la regle dans le sortant et l'entrant .
-    
+
+    pour definir un port particulier dans ces meme parametres sauf que dans les option des port on definit un port particulier ici 8888
+
+    maintenant meme avec le pare feu  activer le ping marche mtn
+         ping 1.1.1.1
+
+        Envoi d’une requête 'Ping'  1.1.1.1 avec 32 octets de données :
+        Réponse de 1.1.1.1 : octets=32 temps=49 ms TTL=54
+        Réponse de 1.1.1.1 : octets=32 temps=44 ms TTL=54
+
+    et le netcat marche aussi
+
+        .\nc.exe 10.10.10.227 8888
+        coucou
+        le pountos
+
+## III. Manipulations d'autres outils/protocoles côté client
+
+1. DHCP
+    toutes les informations sont obtenue grace a ipconfig /all
+
+        Bail obtenu. . . . . . . . . . . . . . : jeudi 6 octobre 2022 08:52:54
+        Bail expirant. . . . . . . . . . . . . : vendredi 7 octobre 2022 08:52:53
+        Passerelle par défaut. . . . . . . . . : 10.33.19.254            
+        Serveur DHCP . . . . . . . . . . . . . : 10.33.19.254
+
+  2. DNS
+
+ avec la commande nslookup c'est l'adresse 8.8.8.8 qui revient tout le temps c'est donc surement l'adresse dns que mon ordinateur utilise 
+        
+        nslookup www.ynov.com
+        Serveur :   dns.google
+        Address:  8.8.8.8
+
+        Réponse ne faisant pas autorité :
+        Nom :    www.ynov.com
+        Addresses:  2606:4700:20::681a:ae9
+             2606:4700:20::681a:be9
+             2606:4700:20::ac43:4ae2
+             172.67.74.226
+             104.26.10.233
+             104.26.11.233  
+
+        nslookup google.com
+        Serveur :   dns.google
+        Address:  8.8.8.8
+
+        Réponse ne faisant pas autorité :
+        Nom :    google.com
+        Addresses:  2a00:1450:4007:80f::200e
+            216.58.209.238
