@@ -121,4 +121,7 @@ puis on reactive le dhcp avec
 
     netsh interface ip set adress name="Wi-Fi" dhcp
 
-
+1. notre pc decouvre le reseaux et envoie une demande a tout le reseaux pour trouver le serveur dhcp 
+2. le serveur dhcp nous repond en nous proposant une adresse ip et windows magie fait que on accpete automatiquement 
+3. on recomunique avec le dhcp pour valider cette adresse ip 
+4. et le dhcp nous confirme notre nouvelle adresse ip sur le reseaux 
