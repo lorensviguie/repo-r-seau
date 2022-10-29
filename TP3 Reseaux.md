@@ -167,4 +167,43 @@ il peut ping sa passerelle
         PING 10.3.1.254 (10.3.1.254) 56(84) bytes of data.
         64 bytes from 10.3.1.254: icmp_seq=1 ttl=64 time=0.666 ms
 
-quand il ping une adresse qui existe pas 
+ca route par default est 1.1.1.1
+
+        [it5@localhost ~]$ ping 1.1.1.1
+        PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+        64 bytes from 1.1.1.1: icmp_seq=1 ttl=53 time=21.5 ms
+
+on teste avec notre route 
+
+        [it5@localhost ~]$ dig google.com
+
+        ; <<>> DiG 9.16.23-RH <<>> google.com
+        ;; global options: +cmd
+        ;; Got answer:
+        ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 39076
+        ;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+        ;; OPT PSEUDOSECTION:
+        ; EDNS: version: 0, flags:; udp: 512
+        ;; QUESTION SECTION:
+        ;google.com.                    IN      A
+
+        ;; ANSWER SECTION:
+        google.com.             275     IN      A       216.58.214.78
+
+        ;; Query time: 27 msec
+        ;; SERVER: 8.8.8.8#53(8.8.8.8)
+        ;; WHEN: Fri Oct 28 11:42:52 CEST 2022
+        ;; MSG SIZE  rcvd: 55
+
+on ping google.com
+
+        [it5@localhost ~]$ ping google.com
+        PING google.com (216.58.214.78) 56(84) bytes of data.
+        64 bytes from fra15s10-in-f14.1e100.net (216.58.214.78): icmp_seq=1 ttl=112 time=21.8 ms
+
+### 2.Analyse de trames
+
+l'IP fournit par le serveur DHCP au client et 10.3.1.146 
+l'adresse de la passerelle est 10.3.1.254
+l'adresse du serveur DHCP est 10.3.1.11
