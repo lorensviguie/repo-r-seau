@@ -341,3 +341,7 @@ google.com.             36      IN      A       216.58.214.78
 ;; MSG SIZE  rcvd: 55
 
 ```
+
+pour la derniere partie c'est un fait 
+
+[trame dns request](./TP4ReseauxWireshark/Dns%20request%20failed.pcapng)
