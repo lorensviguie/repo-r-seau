@@ -157,19 +157,24 @@ ynov.com
         expire  = 604800 (7 days)
         default TTL = 1800 (30 mins)
 
-C:\Users\33603>nslookup www.ynov.com algin.ns.cloudflare.com
-Serveur :   algin.ns.cloudflare.com
-Address:  2a06:98c1:50::ac40:213d
+C:\Users\33603>tracert www.ynov.com
 
-Nom :    www.ynov.com
-Addresses:  2606:4700:20::ac43:4ae2
-          2606:4700:20::681a:ae9
-          2606:4700:20::681a:be9
-          104.26.11.233
-          104.26.10.233
-          172.67.74.226
+Détermination de l’itinéraire vers www.ynov.com [172.67.74.226]
+avec un maximum de 30 sauts :
+
+  1     3 ms     1 ms     1 ms  10.33.79.254
+  2     2 ms     3 ms     3 ms  145.117.7.195.rev.sfr.net [195.7.117.145]
+  3     1 ms     4 ms     9 ms  237.195.79.86.rev.sfr.net [86.79.195.237]
+  4     7 ms     2 ms     2 ms  196.224.65.86.rev.sfr.net [86.65.224.196]
+  5    11 ms    55 ms    15 ms  12.148.6.194.rev.sfr.net [194.6.148.12]
+  6    22 ms    14 ms    11 ms  12.148.6.194.rev.sfr.net [194.6.148.12]
+  7    19 ms   166 ms    17 ms  141.101.67.48
+  8    13 ms    11 ms    11 ms  172.71.124.4
+  9    12 ms    11 ms    11 ms  172.67.74.226
+
+Itinéraire déterminé.
 ```
-elle passe par une machine 
+elle passe par 9 machines
 
 ### ☀️ IP publique
 
