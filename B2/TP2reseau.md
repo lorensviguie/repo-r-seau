@@ -151,7 +151,7 @@ subnet 10.1.1.0 netmask 255.255.255.0 {
     option routers 10.1.1.254;
 }
 
-[root@dhcp it5]# sudo systemctl status dhcpd | grep Acti
+[it5@dhcp it5]# sudo systemctl status dhcpd | grep Acti
      Active: active (running) since Thu 2023-10-19 16:03:02 CEST; 1min 12s ago
 
 ```
@@ -174,5 +174,15 @@ subnet 10.1.1.0 netmask 255.255.255.0 {
 #### ☀️ Sur web.lan2.tp2
 
 ```powershell
+[it5@web ~]$ ss -tuln | grep :80
+LISTEN     0      128           *:80                     *:*
 
+[it5@web ~]$ sudo firewall-cmd --add-port=80/tcp --permanent
+success
+
+[it5@web ~]$ sudo firewall-cmd --reload
+[sudo] password for it5:
+success
+[it5@web ~]$ sudo cat /etc/hosts
+10.1.2.12     site_nul_tp2
 ```
