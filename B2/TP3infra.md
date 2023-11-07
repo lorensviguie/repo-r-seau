@@ -126,3 +126,42 @@ host (10.3.1.3) not reachable
 ```
 
 ## III. Ptite VM DHCP
+
+🌞 VM dhcp.tp3.b2
+```powershell
+
+[it5@dhcp ~] dnf -y install dhcp-server
+[it5@dhcp ~] sudo cat /etc/dhcp/dhcpd.conf
+default-lease-time 600;
+max-lease-time 7200;
+authoritative;
+subnet 10.3.1.0 netmask 255.255.255.0 {
+    range dynamic-bootp 10.3.1.100 10.3.1.200;
+    option broadcast-address 10.3.1.255;
+}
+IOU1#show vlan br
+
+VLAN Name                             Status    Ports
+10   Vlan10                           active    Et0/2, Et1/0, Et1/2
+20   Vlan20                           active    Et0/3, Et1/1, ET1/0
+
+PC5> show ip
+NAME        : PC5[1]
+IP/MASK     : 0.0.0.0/0
+GATEWAY     : 0.0.0.0
+DNS         :
+[...]
+
+PC4> show ip
+
+NAME        : PC4[1]
+IP/MASK     : 10.3.1.100/24
+GATEWAY     : 255.255.255.0
+DNS         :
+MAC         : 00:50:79:66:68:03
+LPORT       : 20019
+RHOST:PORT  : 127.0.0.1:20020
+MTU         : 1500
+
+
+```

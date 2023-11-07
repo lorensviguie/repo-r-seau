@@ -1,0 +1,5 @@
+interface Et0/3
+switchport mode access
+switchport acces vlan 20
+no shutdown
+exit

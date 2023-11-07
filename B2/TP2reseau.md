@@ -78,13 +78,7 @@ rtt min/avg/max/mdev = 10.274/11.169/12.064/0.895 ms
 ```powershell
 [it5@node1.lan1.tp2]$ sudo cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
 [sudo] password for it5:
-DEVICE=enp0s8
-
-BOOTPROTO=static
-ONBOOT=yes
-
-IPADDR=10.1.1.11
-NETMASK=255.255.255.0
+M
 
 GATEWAY=10.1.1.254
 DNS1=1.1.1.1
