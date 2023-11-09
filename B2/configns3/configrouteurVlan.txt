@@ -1,0 +1,4 @@
+interface fastEthernet 0/1.30
+encapsulation dot1Q 30
+ip addr 10.1.30.254 255.255.255.0 
+exit
