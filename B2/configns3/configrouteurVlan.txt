@@ -1,4 +1,14 @@
+interface fastEthernet 0/1.10
+encapsulation dot1Q 10
+ip addr 10.1.10.254 255.255.255.0
+exit
+interface fastEthernet 0/1.20
+encapsulation dot1Q 20
+ip addr 10.1.20.254 255.255.255.0
+exit
 interface fastEthernet 0/1.30
 encapsulation dot1Q 30
-ip addr 10.1.30.254 255.255.255.0 
+ip addr 10.1.30.254 255.255.255.0
 exit
+interface fastEthernet 0/1
+no shutdown

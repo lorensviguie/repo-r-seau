@@ -1,0 +1,3 @@
+sudo nmcli connection modify Wired\ connection\ 1 ipv4.address 10.1.10.16/24
+sudo nmcli connection modify Wired\ connection\ 1 ipv4.gateway 10.1.10.254
+sudo nmcli connection modify Wired\ connection\ 1 ipv4.method manual

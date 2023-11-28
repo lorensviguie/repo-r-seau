@@ -1,4 +1,4 @@
-interface Et1/0
+interface Et0/2
 switchport mode access
 switchport acces vlan 10
 no shutdown

@@ -1,0 +1,16 @@
+[Unit]
+Description=Service pour l'application Calc
+After=network.target
+
+[Service]
+Type=simple
+User=calc
+ExecStartPre=sudo usr/bin/firewall-cmd --add-port=1048/tcp
+ExecStart=/usr/bin/python /opt/calculatrice/server.py
+ExecPostStop=sudo /usr/bin/firewall-cmd --remove-port=1048/tcp
+Restart=always
+RestartSec=30
+[Install]
+WantedBy=multi-user.target
+
+

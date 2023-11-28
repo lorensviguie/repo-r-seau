@@ -1,5 +1,0 @@
-interface Et1/0
-switchport mode access
-switchport acces vlan 30
-no shutdown
-exit
