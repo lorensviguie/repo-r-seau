@@ -1,0 +1,30 @@
+2023-11-30 13:46:41 INFO Connexion réussie à 10.33.67.35:13337
+2023-11-30 13:46:42 INFO Message envoyé au serveur 10.33.67.35 : 3+3
+2023-11-30 13:46:42 INFO Réponse reçue du serveur 10.33.67.35 : b'6'
+2023-11-30 15:09:07 INFO Connexion réussie à 10.33.67.166:13337
+2023-11-30 15:09:09 INFO Message envoyé au serveur 10.33.67.166 : 3+3
+2023-11-30 15:09:09 INFO Réponse reçue du serveur 10.33.67.166 : b'6'
+2023-11-30 15:22:55 INFO Connexion réussie à 10.33.67.166:13337
+2023-11-30 15:22:57 INFO Message envoyé au serveur 10.33.67.166 : 3+3
+2023-11-30 15:22:57 ERROR Impossible de se connecter au serveur 10.33.67.166 sur le port 13337
+2023-11-30 15:23:03 INFO Connexion réussie à 10.33.67.166:13337
+2023-11-30 15:23:05 INFO Message envoyé au serveur 10.33.67.166 : 3+3
+2023-11-30 15:23:05 INFO Réponse reçue du serveur 10.33.67.166 : b'6'
+2023-11-30 16:41:06 INFO Connexion réussie à 10.33.67.35:13337
+2023-11-30 16:41:09 INFO Message envoyé au serveur 10.33.67.35 : 3+3
+2023-11-30 16:41:37 INFO Réponse reçue du serveur 10.33.67.35 : b'6'
+2023-11-30 16:42:42 INFO Connexion réussie à 10.33.67.35:13337
+2023-11-30 16:42:43 INFO Message envoyé au serveur 10.33.67.35 : 3+3
+2023-11-30 16:44:01 ERROR Impossible de se connecter au serveur 10.33.67.35 sur le port 13337
+2023-11-30 16:55:15 INFO Connexion réussie à 10.33.67.166:13337
+2023-11-30 16:55:22 INFO Message envoyé au serveur 10.33.67.166 : 3+3
+2023-11-30 16:56:11 INFO Réponse reçue du serveur 10.33.67.166 : b'6'
+2023-11-30 16:56:11 INFO Connexion réussie à 10.33.67.166:13337
+2023-11-30 16:56:13 INFO Message envoyé au serveur 10.33.67.166 : 3+3
+2023-11-30 16:56:13 INFO Réponse reçue du serveur 10.33.67.166 : b'6'
+2023-12-01 13:16:58 INFO Connexion réussie à 10.33.67.166:13337
+2023-12-01 13:17:01 INFO Message envoyé au serveur 10.33.67.166 : 3+3
+2023-12-01 13:17:26 INFO Réponse reçue du serveur 10.33.67.166 : b''
+2023-12-01 13:17:32 INFO Connexion réussie à 10.33.67.166:13337
+2023-12-01 13:17:33 INFO Message envoyé au serveur 10.33.67.166 : 3+3
+2023-12-01 13:17:33 INFO Réponse reçue du serveur 10.33.67.166 : b'6'

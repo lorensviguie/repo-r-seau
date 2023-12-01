@@ -51,7 +51,7 @@ After=network.target
 Type=simple
 User=calc
 ExecStart=/usr/bin/python /opt/calculatrice/server.py
-Restart=on-abnormal
+Restart=on-always
 
 [Install]
 WantedBy=multi-user.target
@@ -101,7 +101,46 @@ Veuillez saisir une opération arithmétique : 3+3
 %calc ALL=(ALL) NOPASSWD: /usr/bin/firewall-cmd --remove-port=1048/tcp
 
 ```
+## 3. Monitoring
 
+🌞 Installer Netdata sur hosting.tp5.b1
+```powershell
+[it5@pc-148 opt]$ sudo systemctl status netdata
+● netdata.service - Real time performance monitoring
+     Loaded: loaded (/usr/lib/systemd/system/netdata.service; enabled; preset: enabled)
+     Active: active (running) since Tue 2023-11-28 20:28:04 CET; 2min 25s ago
+[it5@localhost netdata]$ sudo firewall-cmd --list-all | grep ports
+  ports: 19999/tcp 1048/tcp
+[it5@pc-148 system]$ ss -tuln |grep 1999
+tcp   LISTEN 0      4096   192.168.206.4:19999      0.0.0.0:*
+```
+🌞 Configurer une sonde TCP
+```powershell
+[it5@localhost netdata]$ sudo cat go.d/portcheck.conf | tail -n 9
+update every: 20
+jobs:
+ - name: calculatrice
+   host: 10.0.2.15
+   ports: [1048]
+[it5@localhost netdata]$sudo cat health_alarm_notify.conf
+#------------------------------------------------------------------------------
+# discord (discordapp.com) global notification options
+
+SEND_DISCORD="YES"
+DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/lewebhook"
+DEFAULT_RECIPIENT_DISCORD="alerts"
+
+```
+
+🌞 Alerting Discord
+```powershell
+[it5@localhost ~]$ sudo cat /etc/netdata/go.d/portcheck.conf
+update every: 20
+jobs:
+ - name: calculatrice
+   host: 10.0.2.15
+   ports: [1048]
+```
 ## III. Héberger
 
 ### 1. Interface bridge 

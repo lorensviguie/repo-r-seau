@@ -4,8 +4,8 @@ import re
 import logging
 import json
 # On définit la destination de la connexion
-host = '192.168.206.4'  # IP du serveur
-port = 1048               # Port choisir par le serveur
+host = '10.33.67.166'  # IP du serveur
+port = 13337               # Port choisir par le serveur
 
 class CustomFormatter(logging.Formatter):
 
@@ -31,7 +31,7 @@ try:
 
     # Create handlers
     c_handler = logging.StreamHandler()
-    f_handler = logging.FileHandler('/var/log/bs_client/bs_client.log')
+    f_handler = logging.FileHandler('./B2/APP_TP5/bs_client.log')
     c_handler.setLevel(logging.ERROR)  # Set to DEBUG to ensure all levels are logged to console
     f_handler.setLevel(logging.DEBUG)  # Set to DEBUG to ensure all levels are logged to file
 

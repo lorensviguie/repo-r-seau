@@ -1,0 +1,7 @@
+interface Ethernet0/0
+spanning-tree vlan 1 port-priority 50
+
+
+
+
+show spanning-tree
