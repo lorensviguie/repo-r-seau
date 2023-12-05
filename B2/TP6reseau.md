@@ -80,11 +80,11 @@ GATEWAY     : 10.6.3.254
 
 ```
 conf des routeur avec OSPF
-[routeur 1](/tp6_config/r1.txt)
-[routeur 2](/tp6_config/r2.txt)
-[routeur 3](/tp6_config/r3.txt)
-[routeur 4](/tp6_config/r4.txt)
-[routeur 5](/tp6_config/r5.txt)  
+[routeur 1](tp6_config/r1.txt)
+[routeur 2](tp6_config/r2.txt)
+[routeur 3](tp6_config/r3.txt)
+[routeur 4](tp6_config/r4.txt)
+[routeur 5](tp6_config/r5.txt)  
 
 
 🌞 Configurer OSPF sur tous les routeurs
@@ -166,30 +166,30 @@ Neighbor ID     Pri   State           Dead Time   Address         Interface
 
 🌞 Test
 ```powershell
-PC3> ping 1.1.1.1
+waf> ping 1.1.1.1
 
 1.1.1.1 icmp_seq=1 timeout
 84 bytes from 1.1.1.1 icmp_seq=2 ttl=86 time=67.429 ms
 84 bytes from 1.1.1.1 icmp_seq=3 ttl=86 time=57.557 ms
-PC3> ping 10.6.3.11
+waf> ping 10.6.3.11
 
 84 bytes from 10.6.3.11 icmp_seq=1 ttl=62 time=51.403 ms
 84 bytes from 10.6.3.11 icmp_seq=2 ttl=62 time=32.458 ms
 84 bytes from 10.6.3.11 icmp_seq=3 ttl=62 time=36.131 ms
 84 bytes from 10.6.3.11 icmp_seq=4 ttl=62 time=33.474 ms
 84 bytes from 10.6.3.11 icmp_seq=5 ttl=62 time=34.991 ms
-PC2> ping 10.6.52.1
+Meo> ping 10.6.52.1
 
 84 bytes from 10.6.52.1 icmp_seq=1 ttl=252 time=64.417 ms
 84 bytes from 10.6.52.1 icmp_seq=2 ttl=252 time=45.035 ms
-PC2> ping 10.6.52.2
+Meo> ping 10.6.52.2
 
 84 bytes from 10.6.52.2 icmp_seq=1 ttl=253 time=51.398 ms
-PC1> ping 10.6.21.2
+John> ping 10.6.21.2
 
 84 bytes from 10.6.21.2 icmp_seq=1 ttl=254 time=24.660 ms
 84 bytes from 10.6.21.2 icmp_seq=2 ttl=254 time=30.411 ms
-PC1> ping 10.6.52.1
+John> ping 10.6.52.1
 
 84 bytes from 10.6.52.1 icmp_seq=1 ttl=253 time=50.166 ms
 84 bytes from 10.6.52.1 icmp_seq=2 ttl=253 time=45.148 ms
@@ -198,3 +198,62 @@ PC1> ping 10.6.52.1
 [🦈 tp6_ospf.pcapng](./tramewirehsark/bpdus.pcapng)
 
 ## III. DHCP relay
+
+
+🌞 Configurer un serveur DHCP sur dhcp.tp6.b1
+```powershell
+[it5@dhcp ~]$ sudo cat /etc/dhcp/dhcpd.conf
+default-lease-time 600;
+max-lease-time 7200;
+
+authoritative;
+
+subnet 10.6.1.0 netmask 255.255.255.0 {
+    range dynamic-bootp 10.6.1.100 10.6.1.200;
+    option domain-name-servers 1.1.1.1;
+    option routers 10.6.1.254;
+}
+
+subnet 10.6.3.0 netmask 255.255.255.0 {
+    range dynamic-bootp 10.6.3.100 10.6.3.200;
+    option domain-name-servers 1.1.1.1;
+    option routers 10.6.3.254;
+}
+```
+
+🌞 Configurer un DHCP relay sur la passerelle de John
+```powershell
+
+R1(config)#interface fastEthernet 2/0
+R1(config-if)#ip helper-address 10.6.1.253
+john> ip dhcp
+DDORA IP 10.6.3.100/24 GW 10.6.3.254
+
+```
+
+## IV. Bonus
+
+### 1. ACL  
+
+🌞 Configurer une access-list
+```powershell
+R4#
+R4(config)# access-list 101 permit ip 10.6.1.0 0.0.0.255 any
+R4(config)# access-list 102 permit ip 10.6.2.0 0.0.0.255 any
+R4(config)# access-list 103 permit ip 10.6.41.0 0.0.0.3 any
+R4(config)# interface f 0/0
+R4(config-if)# ip access-group 101 out
+R4(config)# interface f 0/1
+R4(config-if)# ip access-group 102 out
+R4(config)# interface f 0/0
+R4(config-if)# ip access-group 103 out
+access-list 100 deny ip any any
+Router(config)# ip access-list extended <votre-numero-liste>
+Router(config-ext-nacl)# deny ip any any
+
+access-list 100 deny   ip any any
+access-list 101 permit ip 10.6.1.0 0.0.0.255 any
+access-list 102 permit ip 10.6.2.0 0.0.0.255 any
+access-list 103 permit ip 10.6.3.0 0.0.0.255 any
+
+```
