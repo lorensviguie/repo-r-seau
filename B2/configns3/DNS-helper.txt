@@ -1,0 +1,27 @@
+conf t
+interface fastEthernet 0/1.11
+ip helper-address  10.8.5.251                               
+exit
+interface fastEthernet 0/1.65
+ip helper-address  10.8.5.251                               
+exit
+interface fastEthernet 0/1.70
+ip helper-address  10.8.5.251                               
+exit
+
+
+
+conf t
+interface fastEthernet 0/1
+ip helper-address  10.7.5.253                               
+exit
+
+<DHCP_SERVER_IP_ADDRESS>
+
+
+
+
+subnet 10.7.5.0 netmask 255.255.255.0 {
+    range dynamic-bootp 10.7.5.200 10.7.5.220;
+    option routers 10.7.5.254;
+}

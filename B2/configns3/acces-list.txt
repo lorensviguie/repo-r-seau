@@ -1,0 +1,88 @@
+conf t
+
+logging 10.8.5.248
+
+logging trap debugging
+ip access-list logging hash-generation
+
+ip access-list extended ACL_COMBINED
+permit ip 10.8.70.0 0.0.0.255 10.8.10.192 0.0.0.63
+deny ip any any log
+
+
+conf t
+
+ip access-list extended ACCES_LIST_RIEN
+deny ip any any log
+
+ip access-list extended ACCES_LIST_internet
+permit ip 10.8.0.0 0.0.255.255 any
+deny ip any any log
+exit
+
+ip access-list extended ACCES_LIST_DEV
+permit ip 10.8.70.0 0.0.0.255 10.8.10.192 0.0.0.63
+permit ip 10.8.70.0 0.0.0.255 10.8.50.240 0.0.0.15
+permit ip 10.8.70.0 0.0.0.255 10.8.40.240 0.0.0.15
+permit ip 10.8.70.0 0.0.0.255 host 10.8.5.249
+permit ip 10.8.70.0 0.0.0.255 any
+deny ip any any log
+exit
+
+ip access-list extended ACCES_LIST_camera
+permit ip 10.8.45.240 0.0.0.15 host 10.8.5.248
+deny ip any any log
+exit
+
+ip access-list extended ACCES_LIST_ADMIN
+permit ip 10.8.11.0 0.0.0.15 10.8.65.96 0.0.0.15
+permit ip 10.8.11.0 0.0.0.15 10.8.45.240 0.0.0.15
+permit ip 10.8.11.0 0.0.0.15 10.8.40.240 0.0.0.15
+permit ip 10.8.11.0 0.0.0.15 10.8.50.240 0.0.0.15
+permit ip 10.8.11.0 0.0.0.15 10.8.60.0 0.0.0.255
+permit ip 10.8.11.0 0.0.0.15 10.8.70.0 0.0.0.255
+permit ip 10.8.11.0 0.0.0.15 10.8.5.240 0.0.0.15
+permit ip 10.8.11.0 0.0.0.15 10.8.10.192 0.0.0.63
+permit ip 10.8.11.0 0.0.0.15 any
+deny ip any any log
+exit
+
+ip access-list extended ACCES_LIST_DIRECTION
+permit ip 10.8.65.96 0.0.0.15 10.8.40.240 0.0.0.15
+permit ip 10.8.65.96 0.0.0.15 10.8.50.240 0.0.0.15
+permit ip 10.8.65.96 0.0.0.15 any
+deny ip any any log
+exit
+
+interface fastEthernet 0/0.11
+ip access-group ACCES_LIST_ADMIN in
+exit
+
+interface fastEthernet 0/0.70
+ip access-group ACCES_LIST_DEV in
+exit
+
+interface fastEthernet 0/0.65
+ip access-group ACCES_LIST_DIRECTION in
+exit
+
+interface fastEthernet 0/0.10
+ip access-group ACCES_LIST_internet out
+exit
+
+interface fastEthernet 0/0.5
+ip access-group ACCES_LIST_internet out
+exit
+
+interface fastEthernet 0/0.40
+ip access-group ACCES_LIST_RIEN in
+exit
+
+interface fastEthernet 0/0.50
+ip access-group ACCES_LIST_RIEN in
+exit
+
+end
+
+write memory
+

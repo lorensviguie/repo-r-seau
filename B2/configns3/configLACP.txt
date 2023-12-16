@@ -1,0 +1,14 @@
+conf t 
+interface ethernet0/1
+channel-group 1 mode on
+exit
+interface ethernet0/2
+channel-group 1 mode on
+exit
+exit
+
+
+
+show etherchannel ?
+show etherchannel summary
+show etherchannel load-balance

@@ -1,5 +1,7 @@
-interface Et0/2
+conf t
+interface Et0/3
 switchport mode access
-switchport acces vlan 10
+switchport acces vlan 30
 no shutdown
+exit
 exit

@@ -1,7 +1,33 @@
 conf t
+conf t
+interface fastEthernet 1/0
+ip addr 10.10.1.253 255.255.255.252
+
 router ospf 1
-router-id 1.1.1.1
+router-id 2.2.2.2
 
 
 #pour partager la route vers une lan/reseaux que un routeur connait masque inversé
-network 10.1.1.0 0.0.0.255 area 0
+
+network 10.7.11.240 0.0.0.15 area 1
+network 10.7.65.248 0.0.0.15 area 1
+network 10.7.40.240 0.0.0.15 area 1
+network 10.7.45.0 0.0.0.255 area 1
+network 10.7.50.248 0.0.0.7 area 1
+network 10.7.60.0 0.0.0.255 area 1
+network 10.7.70.240 0.0.0.255 area 1
+network 10.7.40.240 0.0.0.15 area 1
+network 10.7.5.248 0.0.0.7 area 1
+network 10.7.10.192 0.0.0.63 area 1
+
+
+network 10.8.65.96 0.0.0.15 area 2
+network 10.8.11.0 0.0.0.15 area 2
+network 10.8.45.240 0.0.0.15 area 2
+network 10.8.50.240 0.0.0.15 area 2
+network 10.8.40.240 0.0.0.15 area 2
+network 10.8.60.0 0.0.0.255 area 2
+network 10.8.70.0 0.0.0.255 area 2
+network 10.8.5.240 0.0.0.15 area 2
+network 10.8.10.192 0.0.0.63 area 2
+

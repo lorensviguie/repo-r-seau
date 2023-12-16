@@ -1,0 +1,39 @@
+configure terminal
+interface ethernet 0/3
+spanning-tree bpduguard enable
+exit
+interface ethernet 0/2
+spanning-tree bpduguard enable
+exit
+exit
+
+
+
+
+
+spanning-tree bpduguard enable/disable
+
+
+conf t
+interface ethernet 0/1
+spanning-tree bpduguard enable
+exit
+interface ethernet 0/2
+spanning-tree bpduguard enable
+exit
+interface ethernet 0/3
+spanning-tree bpduguard enable
+exit
+interface ethernet 1/0
+spanning-tree bpduguard enable
+exit
+interface ethernet 1/1
+spanning-tree bpduguard enable
+exit
+interface ethernet 1/2
+spanning-tree bpduguard enable
+exit
+interface ethernet 1/3
+spanning-tree bpduguard enable
+exit
+exit

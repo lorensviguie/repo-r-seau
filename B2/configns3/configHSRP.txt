@@ -1,0 +1,154 @@
+routeur prio
+
+interface fe 0/1
+ip address 10.1.1.1 255.255.255.0
+no shutdown
+standby 10 ip 10.1.1.3
+standby 10 priority 150
+standby 10 preempt
+
+l'autre
+
+interface fe 0/1
+ip address 10.1.1.2 255.255.255.0
+no shutdown
+standby 10 ip 10.1.1.3
+standby 10 priority 100
+
+
+
+
+show standby brief
+
+
+R3
+
+conf t 
+interface fastEthernet 0/0.65
+encapsulation dot1Q 65
+ip address 10.8.65.109 255.255.255.240
+standby 65 ip 10.8.65.110
+standby 65 priority 50
+exit
+interface fastEthernet 0/0.11
+encapsulation dot1Q 11
+ip address 10.8.11.13 255.255.255.240
+standby 11 ip 10.8.11.14
+standby 11 priority 50
+exit
+interface fastEthernet 0/0.45
+encapsulation dot1Q 45
+ip address 10.8.45.253 255.255.255.240
+standby 45 ip 10.8.45.254
+standby 45 priority 50
+exit
+interface fastEthernet 0/0.40
+encapsulation dot1Q 40
+ip address 10.8.40.253 255.255.255.240
+standby 40 ip 10.8.40.254
+standby 40 priority 50
+exit
+interface fastEthernet 0/0.50
+encapsulation dot1Q 50
+ip address 10.8.50.253 255.255.255.240
+standby 50 ip 10.8.50.254
+standby 50 priority 50
+exit
+interface fastEthernet 0/0.60
+encapsulation dot1Q 60
+ip address 10.8.60.253 255.255.255.0
+standby 60 ip 10.8.60.254
+standby 60 priority 50
+exit
+interface fastEthernet 0/0.70
+encapsulation dot1Q 70
+ip address 10.8.70.253 255.255.255.0
+standby 70 ip 10.8.70.254
+standby 70 priority 50
+exit
+interface fastEthernet 0/0.5
+encapsulation dot1Q 5
+ip address 10.8.5.253 255.255.255.240
+standby 5 ip 10.8.5.254
+standby 5 priority 100
+standby 5 preempt
+exit
+interface fastEthernet 0/0.10
+encapsulation dot1Q 10
+ip address 10.8.10.253 255.255.255.192
+standby 10 ip 10.8.10.254
+standby 10 priority 50
+exit
+interface fastEthernet 0/0
+no shutdown
+exit
+
+
+R2
+
+conf t 
+interface fastEthernet 0/0.65
+encapsulation dot1Q 65
+ip address 10.8.65.108 255.255.255.240
+standby 65 ip 10.8.65.110
+standby 65 priority 100
+standby 65 preempt
+exit
+interface fastEthernet 0/0.11
+encapsulation dot1Q 11
+ip address 10.8.11.12 255.255.255.240
+standby 11 ip 10.8.11.14
+standby 11 priority 100
+standby 11 preempt
+exit
+interface fastEthernet 0/0.45
+encapsulation dot1Q 45
+ip address 10.8.45.252 255.255.255.240
+standby 45 ip 10.8.45.254
+standby 45 priority 100
+standby 45 preempt
+exit
+interface fastEthernet 0/0.40
+encapsulation dot1Q 40
+ip address 10.8.40.252 255.255.255.240
+standby 40 ip 10.8.40.254
+standby 40 priority 100
+standby 40 preempt
+exit
+interface fastEthernet 0/0.50
+encapsulation dot1Q 50
+ip address 10.8.50.252 255.255.255.240
+standby 50 ip 10.8.50.254
+standby 50 priority 100
+standby 50 preempt
+exit
+interface fastEthernet 0/0.60
+encapsulation dot1Q 60
+ip address 10.8.60.252 255.255.255.0
+standby 60 ip 10.8.60.254
+standby 60 priority 100
+standby 60 preempt
+exit
+interface fastEthernet 0/0.70
+encapsulation dot1Q 70
+ip address 10.8.70.252 255.255.255.0
+standby 70 ip 10.8.70.254
+standby 70 priority 100
+standby 70 preempt
+exit
+interface fastEthernet 0/0.5
+encapsulation dot1Q 5
+ip address 10.8.5.252 255.255.255.240
+standby 5 ip 10.8.5.254
+standby 5 priority 50
+exit
+interface fastEthernet 0/0.10
+encapsulation dot1Q 10
+ip address 10.8.10.252 255.255.255.192
+standby 10 ip 10.8.10.254
+standby 10 priority 100
+standby 10 preempt
+exit
+interface fastEthernet 0/0
+no shutdown
+exit

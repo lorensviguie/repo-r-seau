@@ -1,0 +1,33 @@
+conf t
+interface FastEthernet0/0
+ip address dhcp
+no shut
+exit
+
+interface fastEthernet 0/1
+ip nat outside
+exit
+
+interface fastEthernet 0/0.5
+ip nat inside
+exit
+interface fastEthernet 0/0.10
+ip nat inside
+exit
+interface fastEthernet 0/0.60
+ip nat inside
+exit
+interface fastEthernet 0/0.65
+ip nat inside
+exit
+interface fastEthernet 0/0.70
+ip nat inside
+exit
+interface fastEthernet 0/0.11
+ip nat inside
+exit
+
+
+access-list 1 permit any
+ip nat inside source list 1 interface fastEthernet 0/0 overload
+exit

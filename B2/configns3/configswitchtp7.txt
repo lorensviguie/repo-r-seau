@@ -1,0 +1,127 @@
+conf t
+interface Et2/0
+switchport mode access
+switchport acces vlan 5
+no shutdown
+exit
+exit
+
+
+conf t
+vlan 70
+name DEV
+exit
+vlan 60
+name IPTEL
+exit
+vlan 65
+name direction
+exit
+vlan 5
+name serveur
+exit
+vlan 10
+name serveurTEST
+exit
+vlan 11
+name Admin
+exit
+vlan 40
+name tele
+exit
+vlan 45
+name camera
+exit
+vlan 50
+name imprimante
+exit
+
+conf t
+interface Et0/1
+switchport mode access
+switchport acces vlan 65
+no shutdown
+exit
+interface Et0/2
+switchport mode access
+switchport acces vlan 65
+no shutdown
+exit
+interface Et0/3
+switchport mode access
+switchport acces vlan 65
+no shutdown
+exit
+interface Et1/0
+switchport mode access
+switchport acces vlan 50
+no shutdown
+exit
+interface Et1/1
+switchport mode access
+switchport acces vlan 45
+no shutdown
+exit
+interface Et1/3
+switchport mode access
+switchport acces vlan 45
+no shutdown
+exit
+interface Et1/2
+switchport mode access
+switchport acces vlan 40
+no shutdown
+exit
+interface Et0/2
+switchport mode access
+switchport acces vlan 10
+no shutdown
+exit
+interface Et2/1
+switchport mode access
+switchport acces vlan 11
+no shutdown
+exit
+interface Et2/2
+switchport mode access
+switchport acces vlan 11
+no shutdown
+exit
+exit
+
+conf t
+interface Ethernet1/3
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add 70,60,5,10,11,40,45,50
+exit
+interface Ethernet0/1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add 70,60,5,10,11,40,45,50
+exit
+interface Ethernet0/2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add 70,60,5,10,11,40,45,50
+exit
+interface Ethernet0/3
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add 70,60,5,10,11,40,45,50
+exit
+interface Ethernet1/0
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add 70,60,5,10,11,40,45,50
+interface Ethernet1/1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add 70,60,5,10,11,40,45,50
+exit
+interface Ethernet1/2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan add 70,60,5,10,11,40,45,50
+exit
+exit

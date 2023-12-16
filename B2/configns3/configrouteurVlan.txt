@@ -1,14 +1,88 @@
+conf t
 interface fastEthernet 0/1.10
 encapsulation dot1Q 10
-ip addr 10.1.10.254 255.255.255.0
+ip addr 10.7.10.253 255.255.255.0
+standby 10 ip 10.7.10.254
+standby 10 priority 150
 exit
 interface fastEthernet 0/1.20
 encapsulation dot1Q 20
-ip addr 10.1.20.254 255.255.255.0
+ip addr 10.7.20.253 255.255.255.0
+standby 10 ip 10.7.20.254
+standby 10 priority 150
 exit
 interface fastEthernet 0/1.30
 encapsulation dot1Q 30
-ip addr 10.1.30.254 255.255.255.0
+ip addr 10.7.30.253 255.255.255.0
+standby 10 ip 10.7.30.254
+standby 10 priority 100
 exit
 interface fastEthernet 0/1
 no shutdown
+exit
+
+conf t
+interface fastEthernet 0/1.10
+encapsulation dot1Q 10
+ip addr 10.7.10.252 255.255.255.0
+standby 10 ip 10.7.10.254
+standby 10 priority 100
+exit
+interface fastEthernet 0/1.20
+encapsulation dot1Q 20
+ip addr 10.7.20.252 255.255.255.0
+standby 10 ip 10.7.20.254
+standby 10 priority 100
+exit
+interface fastEthernet 0/1.30
+encapsulation dot1Q 30
+ip addr 10.7.30.252 255.255.255.0
+standby 10 ip 10.7.30.254
+standby 10 priority 150
+exit
+interface fastEthernet 0/1
+no shutdown
+exit
+
+
+
+conf t 
+interface fastEthernet 0/1.65
+encapsulation dot1Q 65
+ip address 10.7.65.254 255.255.255.0
+exit
+interface fastEthernet 0/1.11
+encapsulation dot1Q 11
+ip address 10.7.11.254 255.255.255.0
+exit
+interface fastEthernet 0/1.45
+encapsulation dot1Q 45
+ip address 10.7.45.254 255.255.255.0
+exit
+interface fastEthernet 0/1.40
+encapsulation dot1Q 40
+ip address 10.7.40.254 255.255.255.0
+exit
+interface fastEthernet 0/1.50
+encapsulation dot1Q 50
+ip address 10.7.50.254 255.255.255.0
+exit
+interface fastEthernet 0/1.60
+encapsulation dot1Q 60
+ip address 10.7.60.254 255.255.255.0
+exit
+interface fastEthernet 0/1.70
+encapsulation dot1Q 70
+ip address 10.7.70.254 255.255.255.0
+exit
+interface fastEthernet 0/1.5
+encapsulation dot1Q 5
+ip address 10.7.5.254 255.255.255.0
+exit
+interface fastEthernet 0/1.10
+encapsulation dot1Q 10
+ip address 10.7.10.254 255.255.255.0
+exit
+interface fastEthernet 0/1
+no shutdown
+exit
