@@ -221,6 +221,108 @@ Pour conclure
 -   sur la terre l'infra a été realisé a plus petite echelle mais les acces list et le bpdu guard sont focntionelle 
 -   la communication entre terre et lune est assurée par le R1 et R2 via le protocole OSPF.
 
-![Alt text](image.png)
-[Config lune](./configTP8_Lune.md)
-[config terre](./configTP8_Terre.md)
+![Alt text](image.png)  
+
+# [Config lune](./configTP8_Lune.md)  
+
+# [config terre](./configTP8_Terre.md)
+
+config DNS Lune  
+```powershell
+default-lease-time 600;
+max-lease-time 7200;
+
+authoritative;
+
+subnet 10.7.65.0 netmask 255.255.255.0 {
+    range dynamic-bootp 10.7.65.10 10.7.65.250;
+    option domain-name-servers 10.8.5.250;
+    option routers 10.7.65.254;
+}
+
+subnet 10.7.70.0 netmask 255.255.255.0 {
+    range dynamic-bootp 10.7.70.1 10.7.70.252;
+    option domain-name-servers 10.8.5.250;
+    option routers 10.7.70.254;
+}
+subnet 10.7.11.0 netmask 255.255.255.0 {
+    range dynamic-bootp 10.7.11.10 10.7.11.100;
+    option domain-name-servers 10.8.5.250;
+    option routers 10.7.11.254;
+}
+subnet 10.7.5.0 netmask 255.255.255.0 {
+    range dynamic-bootp 10.7.5.250 10.7.70.252;
+    option domain-name-servers 10.8.5.250;
+    option routers 10.7.5.254;
+}
+```
+
+config DNS Terre  
+```powershell
+subnet 10.8.65.96 netmask 255.255.255.240 {
+    range dynamic-bootp 10.8.65.97 10.8.65.107;
+    option domain-name-servers 10.8.5.250;
+    option routers 10.8.65.110;
+}
+
+subnet 10.8.70. netmask 255.255.255.0 {
+    range dynamic-bootp 10.8.70.1 10.7.70.250;
+    option domain-name-servers 10.8.5.250;
+    option routers 10.8.70.254;
+}
+subnet 10.8.11.0 netmask 255.255.255.240 {
+    range dynamic-bootp 10.8.11.1 10.8.11.10;
+    option domain-name-servers 10.8.5.250;
+    option routers 10.8.11.14;
+}
+subnet 10.8.5.240 netmask 255.255.255.240 {
+    range dynamic-bootp 10.8.5.240 10.8.5.250;
+    option domain-name-servers 10.8.5.250;
+    option routers 10.8.5.254;
+}
+```
+
+Config du DNS
+```powershell
+[root@DNS ~]sudo dnf install bind bind-utils
+[root@DNS ~]sudo nano /etc/named.conf
+options {
+    listen-on port 53 { any; };
+    directory "/var/named";
+    dump-file "/var/named/data/cache_dump.db";
+    statistics-file "/var/named/data/named_stats.txt";
+    memstatistics-file "/var/named/data/named_mem_stats.txt";
+    allow-query { any; };
+    recursion yes;
+};
+
+zone "dev.meow" IN {
+    type master;
+    file "/etc/named/zones/dev.meow.zone";
+};
+[root@DNS ~]sudo nano /etc/named/zones/dev.meow.zone
+
+$TTL 1D
+@   IN SOA  dns.dev.meow. admin.dev.meow. (
+                2023010101 ; Serial
+                3600       ; Refresh
+                1800       ; Retry
+                604800     ; Expire
+                86400 )    ; Minimum TTL
+
+@     IN NS   dns.dev.meow.
+@     IN A    10.8.5.250
+
+GIT    IN A    10.8.5.249
+Admin_sys    IN A    10.8.11.5
+Admin_secu  IN A    10.8.11.6
+[...]
+Seveur_test_Lune_1   IN A    10.7.10.193
+Seveur_test_Lune_2   IN A    10.7.10.194
+Seveur_test_Lune_3   IN A    10.7.10.195
+[root@DNS ~]sudo nano /etc/resolv.conf
+nameserver 10.8.5.250
+
+```
+
+# PS j'ai adoré le TP malgré la prise de tete
