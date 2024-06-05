@@ -1,31 +1,37 @@
 conf t
-interface FastEthernet0/0
-ip address dhcp
-no shut
-exit
+interface GigabitEthernet0/0
+ ip address dhcp
+ no shut
+ ip nat outside
+ exit
 
-interface fastEthernet 0/1
-ip nat outside
-exit
+interface GigabitEthernet0/1
+ no shut
+ exit
 
-interface fastEthernet 0/0.5
-ip nat inside
-exit
-interface fastEthernet 0/0.10
-ip nat inside
-exit
-interface fastEthernet 0/0.60
-ip nat inside
-exit
-interface fastEthernet 0/0.65
-ip nat inside
-exit
-interface fastEthernet 0/0.70
-ip nat inside
-exit
-interface fastEthernet 0/0.11
-ip nat inside
-exit
+interface GigabitEthernet0/1.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.254 255.255.255.0
+ ip nat inside
+ exit
+
+interface GigabitEthernet0/1.20
+ encapsulation dot1Q 20
+ ip address 192.168.20.254 255.255.255.0
+ ip nat inside
+ exit
+
+interface GigabitEthernet0/1.30
+ encapsulation dot1Q 30
+ ip address 192.168.30.254 255.255.255.0
+ ip nat inside
+ exit
+
+interface GigabitEthernet0/1.40
+ encapsulation dot1Q 40
+ ip address 192.168.40.254 255.255.255.0
+ ip nat inside
+ exit
 
 
 access-list 1 permit any
