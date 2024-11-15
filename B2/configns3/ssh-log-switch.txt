@@ -1,0 +1,26 @@
+#Configuration d'une adresse IP de management sur un switch
+En mode de configuration :
+    interface vlan 100
+    ip address 10.0.100.2 255.255.255.0
+    no shutdown
+    exit
+    ip default-gateway 10.0.100.254
+
+
+conf t
+hostname SW1
+ip domain-name ynov.com
+username admin secret 0 P@ssword
+enable secret 0 P@ssword
+crypto key generate rsa general-keys modulus 2048    
+
+conf t
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+end
+
+conf t
+line vty 0 4
+login local
+transport input ssh 
