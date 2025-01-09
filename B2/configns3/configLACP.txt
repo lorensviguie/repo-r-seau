@@ -1,6 +1,6 @@
 conf t 
 interface ethernet0/1
-channel-group 1 mode on
+channel-group 1 mode on 
 exit
 interface ethernet0/2
 channel-group 1 mode on
@@ -12,3 +12,11 @@ exit
 show etherchannel ?
 show etherchannel summary
 show etherchannel load-balance
+
+different mode type
+enable
+active
+auto
+desirable
+on
+passive
