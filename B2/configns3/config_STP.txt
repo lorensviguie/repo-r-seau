@@ -1,7 +1,15 @@
 interface Ethernet0/0
 spanning-tree vlan 1 port-priority 50
 
-
-
-
 show spanning-tree
+
+
+##Configuration globale du spanning-tree
+En mode de configuration - Pour passer en mode Rapid STP :
+spanning-tree mode rapid-pvst
+Configuration de la priorité sur le switch pour les VLANs créés, dans notre exemple 10 et 99
+spanning-tree vlan 10,99 priority 4096
+##En alternative si on souhaite directement désigner le switch root :
+spanning-tree vlan 10,99 root primary
+##Si on souhaite définir un switch "backup" du root
+spanning-tree vlan 10,99 root secondary
