@@ -1,0 +1,312 @@
+
+SW1-1
+
+conf t
+vlan 10
+name 10
+exit
+vlan 20
+name 20
+exit
+interface Fa 0/1
+switchport mode acces
+switchport acces vlan 10
+spanning-tree bpduguard enable
+exit
+interface Fa 0/2
+switchport mode acces
+switchport acces vlan 20
+spanning-tree bpduguard enable
+exit
+interface Fa 0/3
+channel-group 1 mode on 
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 10,20
+exit
+
+
+SW1-2
+
+conf t
+vlan 10
+name 10
+exit
+vlan 20
+name 20
+exit
+interface Fa 0/1
+switchport mode acces
+switchport acces vlan 10
+spanning-tree bpduguard enable
+exit
+interface Fa 0/2
+switchport mode acces
+switchport acces vlan 20
+spanning-tree bpduguard enable
+exit
+interface Fa 0/3
+channel-group 1 mode on 
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 10,20
+exit
+
+SW1-3
+
+conf t
+vlan 40
+name 40
+exit
+vlan 30
+name 30
+exit
+interface Fa 0/1
+switchport mode acces
+switchport acces vlan 30
+spanning-tree bpduguard enable
+exit
+interface Fa 0/2
+switchport mode acces
+switchport acces vlan 40
+spanning-tree bpduguard enable
+exit
+interface Fa 0/3
+channel-group 1 mode on 
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 40,30
+exit
+
+SW1-4
+
+conf t
+vlan 40
+name 40
+exit
+vlan 30
+name 30
+exit
+interface Fa 0/1
+switchport mode acces
+switchport acces vlan 30
+spanning-tree bpduguard enable
+exit
+interface Fa 0/2
+switchport mode acces
+switchport acces vlan 40
+spanning-tree bpduguard enable
+exit
+interface Fa 0/3
+channel-group 1 mode on 
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 40,30
+exit
+
+interface Ethernet0/0
+spanning-tree vlan 1 port-priority 50
+
+
+SW2-1
+
+conf t
+vlan 10
+name 10
+exit
+vlan 20
+name 20
+exit
+vlan 40
+name 40
+exit
+vlan 30
+name 30
+exit
+interface Fa 0/3
+channel-group 2 mode on 
+exit
+interface Fa 0/4
+channel-group 2 mode on
+exit
+interface port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan 40,30,20,10
+exit
+interface Fa 0/1
+channel-group 1 mode on 
+exit
+interface Fa 0/2
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 40,30,20,10
+exit
+
+SW2-2
+
+conf t
+vlan 10
+name 10
+exit
+vlan 20
+name 20
+exit
+vlan 40
+name 40
+exit
+vlan 30
+name 30
+exit
+interface Fa 0/3
+channel-group 2 mode on 
+exit
+interface Fa 0/4
+channel-group 2 mode on
+exit
+interface port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan 40,30,20,10
+exit
+interface Fa 0/1
+channel-group 1 mode on 
+exit
+interface Fa 0/2
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 40,30,20,10
+exit
+interface Fa 0/5
+channel-group 3 mode on 
+exit
+interface Fa 0/6
+channel-group 3 mode on
+exit
+interface port-channel 3
+switchport mode trunk
+switchport trunk allowed vlan 40,30,20,10
+exit
+
+SW 3-1
+
+conf t
+vlan 10
+name 10
+exit
+vlan 20
+name 20
+exit
+vlan 40
+name 40
+exit
+vlan 30
+name 30
+exit
+interface Fa 0/3
+channel-group 2 mode on 
+exit
+interface Fa 0/4
+channel-group 2 mode on
+exit
+interface port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan 40,30,20,10
+exit
+interface Fa 0/1
+channel-group 1 mode on 
+exit
+interface Fa 0/2
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 40,30,20,10
+exit
+interface Fa 0/5
+switchport mode trunk
+switchport trunk allowed vlan 40,30,20,10
+
+
+R1
+
+conf t
+interface Gig 0/0/0.10
+encapsulation dot1Q 10
+ip addr 10.10.10.254 255.255.255.0
+exit
+interface Gig 0/0/0.20
+encapsulation dot1Q 20
+ip addr 10.10.20.254 255.255.255.0
+exit
+interface Gig 0/0/0.30
+encapsulation dot1Q 30
+ip addr 10.10.30.254 255.255.255.0
+exit
+interface Gig 0/0/0.40
+encapsulation dot1Q 40
+ip addr 10.10.40.254 255.255.255.0
+exit
+interface Gig 0/0/0
+no shutdown
+exit
+
+
+
+
+STP
+
+conf t
+interface port-channel 1
+spanning-tree vlan 10,20 root primary
+spanning-tree vlan 30,40 priority 8192
+exit
+interface port-channel 2
+spanning-tree vlan 30,40 root primary
+spanning-tree vlan 10,20 priority 8192
+exit
+
+SW2-1
+conf t
+interface port-channel 3
+spanning-tree vlan 10,20,30,40 priority 8192
+exit
+interface Fa 0/7
+spanning-tree vlan 10,20,30,40 priority 16384
+exit
+
+conf t
+interface Gig 0/0/0.10
+ip helper-address  10.10.50.253
+exit
+interface Gig 0/0/0.20
+ip helper-address  10.10.50.253
+exit
+interface Gig 0/0/0.30
+ip helper-address  10.10.50.253
+exit
+interface Gig 0/0/0.40
+ip helper-address  10.10.50.253                                
+exit
+
+
+
+
