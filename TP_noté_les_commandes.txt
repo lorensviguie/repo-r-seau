@@ -1,0 +1,647 @@
+R1
+
+conf t
+interface Gig 0/0/0.10
+encapsulation dot1Q 10
+ip addr 10.10.10.254 255.255.255.0
+exit
+interface Gig 0/0/0.11
+encapsulation dot1Q 11
+ip addr 10.10.11.254 255.255.255.0
+exit
+interface Gig 0/0/0
+no shutdown
+
+interface Gig 0/0/1
+ip addr 10.10.250.1 255.255.255.252
+exit
+interface Gig 0/0/2
+ip addr 10.10.251.1 255.255.255.252
+exit
+router ospf 1
+router-id 1.1.1.1
+network 10.10.251.0 0.0.0.3 area 0
+network 10.10.250.0 0.0.0.3 area 0
+network 10.10.10.0 0.0.0.255 area 0
+network 10.10.11.0 0.0.0.255 area 0
+exit
+
+conf t
+interface Gig 0/0/0.30
+ip helper-address  10.10.10.253
+exit
+interface Gig 0/0/0.31
+ip helper-address  10.10.10.253
+exit
+
+
+R2
+
+interface Gig 0/0/0.30
+encapsulation dot1Q 30
+ip addr 10.10.30.254 255.255.255.0
+exit
+interface Gig 0/0/0.31
+encapsulation dot1Q 31
+ip addr 10.10.31.254 255.255.255.0
+exit
+interface Gig 0/0/0
+no shutdown
+
+interface Gig 0/0/2
+ip addr 10.10.251.2 255.255.255.252
+exit
+interface Gig 0/0/1
+ip addr 10.10.252.2 255.255.255.252
+exit
+router ospf 1
+network 10.10.251.0 0.0.0.3 area 0
+network 10.10.252.0 0.0.0.3 area 0
+network 10.10.30.0 0.0.0.255 area 0
+network 10.10.31.0 0.0.0.255 area 0
+router-id 1.1.1.2
+exit
+
+R3
+
+
+interface Gig 0/0/0.20
+encapsulation dot1Q 20
+ip addr 10.10.20.254 255.255.255.0
+exit
+interface Gig 0/0/0.21
+encapsulation dot1Q 21
+ip addr 10.10.21.254 255.255.255.0
+exit
+interface Gig 0/0/0
+no shutdown
+
+interface Gig 0/0/1
+ip addr 10.10.252.1 255.255.255.252
+exit
+interface Gig 0/0/2
+ip addr 10.10.250.2 255.255.255.252
+exit
+router ospf 1
+network 10.10.250.0 0.0.0.3 area 0
+network 10.10.252.0 0.0.0.3 area 0
+network 10.10.20.0 0.0.0.255 area 0
+network 10.10.21.0 0.0.0.255 area 0
+router-id 1.1.1.3
+exit
+
+
+SW1
+
+conf t
+vlan 10
+name 10
+exit
+vlan 11
+name 11
+exit
+
+interface Fa 0/1
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+exit
+interface Fa 0/2
+switchport mode acces
+switchport acces vlan 10
+exit
+
+interface Fa 0/3
+channel-group 1 mode on 
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface Fa 0/5
+channel-group 1 mode on
+exit
+interface Fa 0/6
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 16
+exit
+
+interface Fa 0/7
+channel-group 2 mode on 
+exit
+interface Fa 0/8
+channel-group 2 mode on
+exit
+interface Fa 0/9
+channel-group 2 mode on 
+exit
+interface Fa 0/10
+channel-group 2 mode on
+exit
+interface port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 32
+exit
+do w
+
+
+SW2
+
+conf t
+vlan 10
+name 10
+exit
+vlan 11
+name 11
+exit
+interface Fa 0/5
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 48
+interface Fa 0/6
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 64
+interface Fa 0/7
+switchport mode acces
+sw acces vlan 10
+exit
+
+
+exit
+interface Fa 0/8
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+switchport trunk native vlan 10
+switchport voice vlan 11
+exit
+
+interface Fa 0/1
+channel-group 1 mode on 
+exit
+interface Fa 0/2
+channel-group 1 mode on
+exit
+interface Fa 0/3
+channel-group 1 mode on
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 32
+
+
+SW3
+
+conf t
+vlan 10
+name 10
+exit
+vlan 11
+name 11
+exit
+
+interface Fa 0/5
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 48
+exit
+interface Fa 0/6
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 64
+exit
+interface Fa 0/7
+switchport mode acces
+sw acces vlan 11
+exit
+
+interface Fa 0/1
+channel-group 1 mode on 
+exit
+interface Fa 0/2
+channel-group 1 mode on
+exit
+interface Fa 0/3
+channel-group 1 mode on
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 32
+
+
+SW4
+
+conf t
+vlan 10
+name 10
+exit
+vlan 11
+name 11
+exit
+interface Fa 0/1
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 64
+interface Fa 0/2
+switchport mode trunk
+switchport trunk allowed vlan 10,11
+spanning-tree vlan 10,11 port-priority 80
+interface Fa 0/3
+
+switchport mode trunk
+nospanning-tree bpduguard enable
+switchport trunk allowed vlan 10,11
+switchport trunk native vlan 10
+switchport voice vlan 11
+
+SW5
+
+conf t
+vlan 20
+name 20
+exit
+vlan 21
+name 21
+exit
+
+interface Fa 0/1
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+exit
+
+interface Fa 0/2
+channel-group 1 mode on 
+exit
+interface Fa 0/3
+channel-group 1 mode on
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface Fa 0/5
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 16
+
+interface Fa 0/6
+channel-group 2 mode on 
+exit
+interface Fa 0/7
+channel-group 2 mode on
+exit
+interface Fa 0/8
+channel-group 2 mode on 
+exit
+interface Fa 0/9
+channel-group 2 mode on
+exit
+interface port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 32
+
+SW6
+
+conf t
+vlan 20
+name 20
+exit
+vlan 21
+name 21
+exit
+
+interface Fa 0/1
+channel-group 1 mode on 
+exit
+interface Fa 0/2
+channel-group 1 mode on
+exit
+interface Fa 0/3
+channel-group 1 mode on
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 32
+exit
+interface Fa 0/5
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 80
+exit
+interface Fa 0/6
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 64
+exit
+interface Fa 0/7
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 48
+exit
+
+SW7
+
+conf t
+vlan 20
+name 20
+exit
+vlan 21
+name 21
+exit
+
+interface Fa 0/1
+channel-group 1 mode on 
+exit
+interface Fa 0/2
+channel-group 1 mode on
+exit
+interface Fa 0/3
+channel-group 1 mode on
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 32
+exit
+interface Fa 0/5
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 80
+exit
+interface Fa 0/6
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 64
+exit
+interface Fa 0/7
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 48
+exit
+
+SW8
+
+vlan 20
+name 20
+exit
+vlan 21
+name 21
+exit
+
+interface Fa 0/1
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 48
+exit
+interface Fa 0/2
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 64
+exit
+interface Fa 0/3
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 80
+exit
+interface Fa 0/4
+switchport mode trunk
+spanning-tree bpduguard enable
+switchport trunk allowed vlan 20,21
+switchport trunk native vlan 20
+switchport voice vlan 21
+
+SW9
+
+vlan 20
+name 20
+exit
+vlan 21
+name 21
+exit
+
+interface Fa 0/1
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 48
+exit
+interface Fa 0/2
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 64
+exit
+interface Fa 0/3
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+spanning-tree vlan 20,21 port-priority 80
+exit
+interface Fa 0/4
+switchport mode trunk
+switchport trunk allowed vlan 20,21
+switchport trunk native vlan 20
+spanning-tree vlan 20,21 port-priority 96
+switchport voice vlan 21
+
+
+SW10
+
+conf t
+vlan 30
+name 30
+exit
+vlan 31
+name 31
+exit
+
+interface Fa 0/1
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+exit
+
+interface Fa 0/2
+channel-group 1 mode on 
+exit
+interface Fa 0/3
+channel-group 1 mode on
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface Fa 0/5
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 16
+
+interface Fa 0/6
+channel-group 2 mode on 
+exit
+interface Fa 0/7
+channel-group 2 mode on
+exit
+interface Fa 0/8
+channel-group 2 mode on 
+exit
+interface Fa 0/9
+channel-group 2 mode on
+exit
+interface port-channel 2
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 32
+
+
+SW11
+
+conf t
+vlan 30
+name 30
+exit
+vlan 31
+name 31
+exit
+
+
+
+interface Fa 0/1
+channel-group 1 mode on 
+exit
+interface Fa 0/2
+channel-group 1 mode on
+exit
+interface Fa 0/3
+channel-group 1 mode on
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 32
+interface Fa 0/5
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 48
+exit
+interface Fa 0/6
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 64
+exit
+interface Fa 0/7
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+switchport trunk native vlan 30
+spanning-tree vlan 30,31 port-priority 96
+switchport voice vlan 31
+
+SW12
+
+conf t
+vlan 30
+name 30
+exit
+vlan 31
+name 31
+exit
+
+
+
+interface Fa 0/1
+channel-group 1 mode on 
+exit
+interface Fa 0/2
+channel-group 1 mode on
+exit
+interface Fa 0/3
+channel-group 1 mode on
+exit
+interface Fa 0/4
+channel-group 1 mode on
+exit
+interface port-channel 1
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 32
+interface Fa 0/5
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 48
+exit
+interface Fa 0/6
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 64
+exit
+interface Fa 0/7
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+switchport trunk native vlan 30
+spanning-tree vlan 30,31 port-priority 96
+switchport voice vlan 31
+
+SW13
+
+conf t
+vlan 30
+name 30
+exit
+vlan 31
+name 31
+exit
+
+interface Fa 0/1
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 48
+interface Fa 0/2
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+spanning-tree vlan 30,31 port-priority 64
+exit
+interface Fa 0/3
+switchport mode trunk
+switchport trunk allowed vlan 30,31
+switchport trunk native vlan 30
+spanning-tree vlan 30,31 port-priority 96
+switchport voice vlan 31
+
+conf t
+interface vlan 11
+ip address 10.10.11.4 255.255.255.0
+exit
+ip default-gateway 10.10.11.254
+ip domain-name ynov.com
+username admin secret 0 root
+crypto key generate rsa general-keys modulus 2048
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+line vty 0 4
+login local
+exit 
+do w
+transport input ssh
