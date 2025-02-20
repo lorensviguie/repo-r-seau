@@ -1,0 +1,42 @@
+pour share des réseaux entre eux avec des protocoles des routages different
+il faut que les routeur de different protocole parle entre eux
+
+pour cela tous les routeur doivent communiquer avec le meme protocole ICI ospf
+on va juste conf les routeur en ospf avec un le partage de la route qui les relie entre eux
+
+ci dessous les commandes pour share les network des autres protocole quand le ospf marche
+------------------------------------------------
+sur routeur OSPF
+
+
+pour share les routes eigsp
+
+router ospf 100
+ redistribute eigrp 100 subnets
+
+pour share les routes rip
+
+router ospf 100
+ redistribute rip subnets
+
+ 
+ ------------------------------------------------
+ sur routeur RIP
+ 
+router rip
+ version 2
+ redistribute ospf 100
+
+ 
+ 
+  ------------------------------------------------
+sur routeur EIGRP
+
+
+router eigrp 100
+ redistribute ospf 100
+
+
+
+
+
