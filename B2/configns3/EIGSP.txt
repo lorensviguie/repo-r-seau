@@ -14,12 +14,10 @@ EXAMPLE
 
 
 interface Fa 0/0
- encapsulation dot1Q 10
  ip address 10.10.11.1 255.255.255.0
  no shut
  exit
 interface Fa 1/0
- encapsulation dot1Q 10
  ip address 10.10.12.1 255.255.255.0
  no shut
  exit
