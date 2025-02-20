@@ -15,12 +15,10 @@ Pour vérifier les routes reçues :
 Example
 
 interface Fa 0/0
- encapsulation dot1Q 10
  ip address 10.10.1.1 255.255.255.0
  no shut
  exit
 interface Fa 1/0
- encapsulation dot1Q 10
  ip address 10.10.2.1 255.255.255.0
  no shut
  exit
