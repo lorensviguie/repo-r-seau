@@ -1,0 +1,73 @@
+routage dynamique
+
+router eigrp 100 (ID de l'instance EIGRP)
+ redistribute connected  (Permet d'intégrer les subnets directement connectés dans le routage EIGRP)
+ network 1.3.1.0 0.0.0.3 (Permet de spécifier le(s) réseaux de partage entre voisins EIGRP
+ no auto-summary (permet de refuser la simplification des routes)
+
+Pour vérifier 
+    show ip route eigrp
+
+
+----------------------------------------------------------------------
+EXAMPLE
+
+
+interface Fa 0/0
+ encapsulation dot1Q 10
+ ip address 10.10.11.1 255.255.255.0
+ no shut
+ exit
+interface Fa 1/0
+ encapsulation dot1Q 10
+ ip address 10.10.12.1 255.255.255.0
+ no shut
+ exit
+router eigrp 100
+redistribute connected 
+network 10.10.11.0 0.0.0.255
+network 10.10.12.0 0.0.0.255
+no auto-summary
+exit
+do w
+exit
+show ip route eigrp
+
+
+interface Fa 0/0
+ ip address 10.10.11.2 255.255.255.0
+ no shut
+ exit
+interface Fa 1/0
+ ip address 10.10.14.1 255.255.255.0
+ no shut
+ exit
+router eigrp 100
+redistribute connected 
+network 10.10.11.0 0.0.0.255
+network 10.10.14.0 0.0.0.255
+no auto-summary
+exit
+do w
+exit
+show ip route eigrp
+
+interface Fa 0/0
+ ip address 10.10.13.1 255.255.255.0
+ no shut
+ exit
+interface Fa 1/0
+ ip address 10.10.12.2 255.255.255.0
+ no shut
+ exit
+router eigrp 100
+redistribute connected 
+network 10.10.12.0 0.0.0.255
+network 10.10.13.0 0.0.0.255
+no auto-summary
+exit
+do w
+exit
+show ip route eigrp
+ 
+ 
