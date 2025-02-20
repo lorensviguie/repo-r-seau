@@ -1,0 +1,77 @@
+conf la rip sur chaque routeur
+les pc doivent bien avoir leur passerelle
+
+enable
+configure terminal
+router rip
+   version 2
+   network X.X.X.X (réseaux connus que l'on souhaite partager avec nos voisins + réseaux d'interco avec les voisins)
+   redistribute static (permet de partager ses routes statiques avec ses voisins)
+   auto-summary (permet de synthétiser/résumer les adressages reçus)
+
+Pour vérifier les routes reçues :
+   show ip route rip
+
+Example
+
+interface Fa 0/0
+ encapsulation dot1Q 10
+ ip address 10.10.1.1 255.255.255.0
+ no shut
+ exit
+interface Fa 1/0
+ encapsulation dot1Q 10
+ ip address 10.10.2.1 255.255.255.0
+ no shut
+ exit
+router rip
+version 2 
+network 10.10.1.0
+network 10.10.2.0
+redistribute static
+auto-summary
+exit
+do w
+exit
+show ip route rip
+
+
+interface Fa 0/0
+ ip address 10.10.1.2 255.255.255.0
+ no shut
+ exit
+interface Fa 1/0
+ ip address 10.10.4.1 255.255.255.0
+ no shut
+ exit
+router rip
+version 2 
+network 10.10.1.0
+network 10.10.4.0
+redistribute static
+auto-summary
+exit
+do w
+exit
+show ip route rip
+ 
+ 
+interface Fa 1/0
+ ip address 10.10.2.2 255.255.255.0
+ no shut
+ exit
+interface Fa 0/0
+ ip address 10.10.3.1 255.255.255.0
+ no shut
+ exit
+router rip
+version 2 
+network 10.10.3.0
+network 10.10.2.0
+redistribute static
+auto-summary
+exit
+do w
+exit
+show ip route rip
+ 
