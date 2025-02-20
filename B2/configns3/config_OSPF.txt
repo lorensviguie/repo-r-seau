@@ -1,3 +1,88 @@
+router ospf 100 (permet de spécifier l'ID de l'instance OSPF)
+ router-id 2.2.2.2 (ID du routeur OSPF)
+area 0 (précise l'aire d'échange. L'aréa 0 doit toujours exister dans une topology OSPF, c'est l'aire dite "Backbone")
+network 10.0.0.0 0.0.0.255 area 0 (définit les réseaux de partage entre membre OSPF)
+ log-adjacency-changes (permet de logger les échanges OSPF, utile pour DEBUG)
+ redistribute eigrp 100 subnets (Permet d'intégrer les routes EIGRP (instance 100) dans le partage OSPF) 
+
+Pour ajouter une priorité pour le routeur ID :
+    interface X/X
+         ip ospf priority 100 (255 permet de toujours de prioiriser le routeur. 0 permet de ne jamais le valider)
+Pour vérifier :
+   show ip ospf neighbor
+   show ip route ospf 
+Commandes pour OSPF (deuxième méthode) :
+
+Pour ajouter une priorité pour le routeur ID :
+    interface X/X
+         ip ospf 100 area 0 (permet de définir l'ID d'instance et l'aire OSPF à appliquer sur cette interface)
+         ip ospf priority 100 (255 permet de toujours de prioiriser le routeur. 0 permet de ne jamais le valider)
+
+Pour configurer un routeur ID :
+      conf t
+      router ospf 100
+           router-id X.X.X.X
+      redistribute connected subnets (permet de distribuer dans l'OSPF les réseaux directement connectés)
+Pour vérifier :
+   show ip ospf neighbor
+   show ip route ospf
+
+
+
+interface Fa 0/0
+ ip address 10.10.21.1 255.255.255.0
+ no shut
+ exit
+interface Fa 1/0
+ ip address 10.10.22.1 255.255.255.0
+ no shut
+ exit
+router ospf 100
+router-id 1.1.1.1
+area 0
+network 10.10.21.0 0.0.0.255 area 0
+network 10.10.22.0 0.0.0.255 area 0
+log-adjacency-changes 
+ exit
+ do w
+ 
+ 
+ interface Fa 0/0
+ ip address 10.10.23.1 255.255.255.0
+ no shut
+ exit
+interface Fa 1/0
+ ip address 10.10.22.2 255.255.255.0
+ no shut
+ exit
+ router ospf 100
+router-id 1.1.1.2
+area 0
+network 10.10.23.0 0.0.0.255 area 0
+network 10.10.22.0 0.0.0.255 area 0
+log-adjacency-changes
+ exit
+ do w
+ 
+interface Fa 0/0
+ ip address 10.10.21.2 255.255.255.0
+ no shut
+ exit
+interface Fa 1/0
+ ip address 10.10.24.1 255.255.255.0
+ no shut
+ exit
+ router ospf 100
+router-id 1.1.1.3
+area 0
+network 10.10.21.0 0.0.0.255 area 0
+network 10.10.24.0 0.0.0.255 area 0
+log-adjacency-changes
+ exit
+ do w
+
+
+-------------------------------------------------------
 conf t
 conf t
 interface fastEthernet 1/0
