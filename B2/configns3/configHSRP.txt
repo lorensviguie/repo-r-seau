@@ -3,7 +3,7 @@ no shut
 standby 10 ip X.X.X.Y (activation du HSRP, instance 10 avec son adresse IP Virtuelle différente de l'adresse de base)
 standby 10 priority 120 (définition de sa priorité)
 standby 10 preempt (activation si souhaité de l'option de preempt)
-standby 10 track faX/X (activation du tracking sur une interface pour déprécier la priorité de l'environnement)
+standby 10 track faX/X (activation du tracking sur une interface pour déprécier la priorité de l'environnement) il faut tracker l'interface vers qui les paquet vont repartir pas celle qui recoit
 
 Verification :
 show standby
